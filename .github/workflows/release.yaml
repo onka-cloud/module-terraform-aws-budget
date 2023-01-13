@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - main
+
 jobs:
   release:
-    uses: boldlink/terraform-module-support/.github/workflows/release.yaml@1.0.0
+    uses: boldlink/terraform-module-support/.github/workflows/release.yaml@main
     with:
       config-name:  workflows/config/rd-config.yaml
     secrets:

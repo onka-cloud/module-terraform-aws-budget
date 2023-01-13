@@ -1,13 +1,15 @@
-[![Build Status](https://github.com/boldlink/terraform-module-template/actions/workflows/update.yaml/badge.svg)](https://github.com/boldlink/terraform-module-template/actions)
-[![Build Status](https://github.com/boldlink/terraform-module-template/actions/workflows/release.yaml/badge.svg)](https://github.com/boldlink/terraform-module-template/actions)
-[![Build Status](https://github.com/boldlink/terraform-module-template/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/boldlink/terraform-module-template/actions)
-[![Build Status](https://github.com/boldlink/terraform-module-template/actions/workflows/pr-labeler.yaml/badge.svg)](https://github.com/boldlink/terraform-module-template/actions)
-[![Build Status](https://github.com/boldlink/terraform-module-template/actions/workflows/checkov.yaml/badge.svg)](https://github.com/boldlink/terraform-module-template/actions)
-[![Build Status](https://github.com/boldlink/terraform-module-template/actions/workflows/auto-badge.yaml/badge.svg)](https://github.com/boldlink/terraform-module-template/actions)
+[![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://github.com/boldlink/terraform-aws-budget/blob/main/LICENSE)
+[![Latest Release](https://img.shields.io/github/release/boldlink/terraform-aws-budget.svg)](https://github.com/boldlink/terraform-aws-budget/releases/latest)
+[![Build Status](https://github.com/boldlink/terraform-aws-budget/actions/workflows/update.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-budget/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-budget/actions/workflows/release.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-budget/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-budget/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-budget/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-budget/actions/workflows/pr-labeler.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-budget/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-budget/actions/workflows/checkov.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-budget/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-budget/actions/workflows/auto-badge.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-budget/actions)
 
 [<img src="https://avatars.githubusercontent.com/u/25388280?s=200&v=4" width="96"/>](https://boldlink.io)
 
-# Terraform module example of minimum configuration
+# Terraform module example of the minimum configuration
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -16,7 +18,7 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.11 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.20.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.45.0 |
 
 ## Providers
 
@@ -24,7 +26,9 @@ No providers.
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_minimum_example"></a> [minimum\_example](#module\_minimum\_example) | ../../ | n/a |
 
 ## Resources
 
@@ -52,4 +56,4 @@ This repository uses third party software:
   * Install with `brew install tflint`
   * Manually use via pre-commit
 
-#### BOLDLink-SIG 2022
+#### BOLDLink-SIG 2023

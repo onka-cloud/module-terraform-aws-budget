@@ -17,6 +17,6 @@ on:
 
 jobs:
   checkov-scan:
-    uses: boldlink/terraform-module-support/.github/workflows/checkov.yaml@1.0.0
+    uses: boldlink/terraform-module-support/.github/workflows/checkov.yaml@main
     secrets:
       SLACK_WEBHOOK : ${{secrets.SLACK_WEBHOOK}}

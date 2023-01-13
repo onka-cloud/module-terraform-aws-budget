@@ -1,55 +1,103 @@
-[![Build Status](https://github.com/boldlink/terraform-module-template/actions/workflows/update.yaml/badge.svg)](https://github.com/boldlink/terraform-module-template/actions)
-[![Build Status](https://github.com/boldlink/terraform-module-template/actions/workflows/release.yaml/badge.svg)](https://github.com/boldlink/terraform-module-template/actions)
-[![Build Status](https://github.com/boldlink/terraform-module-template/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/boldlink/terraform-module-template/actions)
-[![Build Status](https://github.com/boldlink/terraform-module-template/actions/workflows/pr-labeler.yaml/badge.svg)](https://github.com/boldlink/terraform-module-template/actions)
-[![Build Status](https://github.com/boldlink/terraform-module-template/actions/workflows/checkov.yaml/badge.svg)](https://github.com/boldlink/terraform-module-template/actions)
-[![Build Status](https://github.com/boldlink/terraform-module-template/actions/workflows/auto-badge.yaml/badge.svg)](https://github.com/boldlink/terraform-module-template/actions)
+[![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://github.com/boldlink/terraform-aws-budget/blob/main/LICENSE)
+[![Latest Release](https://img.shields.io/github/release/boldlink/terraform-aws-budget.svg)](https://github.com/boldlink/terraform-aws-budget/releases/latest)
+[![Build Status](https://github.com/boldlink/terraform-aws-budget/actions/workflows/update.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-budget/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-budget/actions/workflows/release.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-budget/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-budget/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-budget/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-budget/actions/workflows/pr-labeler.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-budget/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-budget/actions/workflows/checkov.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-budget/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-budget/actions/workflows/auto-badge.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-budget/actions)
 
 [<img src="https://avatars.githubusercontent.com/u/25388280?s=200&v=4" width="96"/>](https://boldlink.io)
 
-# Terraform  module \<PROVIDER>-\<MODULE> Terraform module
-
-## How to use this template -- DELETE THIS SECTION BEFORE PR
-1. Create your new module repository by using terraform only (see SOP) and make sure to use this template.
-2. Add your Terraform code in any branch other than `main/master`
-3. Change the `<REPO_NAME>` value for any badges in the `README.md` files in the root `examples` and `modules` folders.
-4. Add nested modules in the `modules` folder, or `DELETE` the nested folder if not used.
-    * _Note: you will also maintain the nested modules full `README.md` files, remember nested modules can be used on their own._
-5. Add examples in the `examples` folder.
-    * _Note: you can have as many examples as you want, but two are required._
-        * _minimum - this is the example with the minimum code to use the module._
-        * _complete - this is the example with all features for a single module used (the most common use)._
-6. Run `pre-commit run --all-files` to update the `README` and fix any issues.
-    * _Note: make sure your IDE tool uses spaces and not tabs specially on `yaml` files._
-7. Run `checkov` or `terrascan` tool and make sure to add the log to the PR (something to automate).
-    * _Note: make sure to scan your module nested modules and examples (great candidate for a makefile action/script and automation)._
-8. Open a pull request into the default branch (usually `main`) and have it reviewed. don't forget to add the security scan logs.
-    * _Note: make sure to add the nested modules README's to the pre-commit config so they are also updated and validated._
-9. If you have been assigned a reviewer DM the reviewer, or the channel if it has been more than one day.
-10. Post to the channel news of the releases to the teams.
+# AWS Budget Terraform module
 
 ## Description
 
-lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem.
+This module simplifies budget management by creating an AWS budget resource and providing an intuitive cost visualization feature powered by AWS Cost Explorer.
 
-Examples available [`here`]github.com/boldlink/<REPO_NAME>//tree/main/examples)
+### Why choose this module
+- This module has the following features:
+  - Automatic adjustment of cost amounts based on historical averages and forecasted amounts
+  - Customizable spending limits
+  - Multiple notifications for various thresholds.
+- Easy to set up and use, with clear instructions and examples available.
+- Saves time and resources by automating budget management.
+- Adheres to AWS security standards through the use of checkov, which scans the code to ensure compliance.
 
-## Usage
-*NOTE*: These examples use the latest version of this module
+### Things to Note before using the module
+#### Planned_limit
+- "For the planned limit feature, data must be supplied for the next 12 months if utilizing a monthly projection, or 4 quarters if utilizing a quarterly projection. The start time should be provided in the format YYYY-MM-DD_HH:MM.",
 
-```console
-module "miniumum" {
-  source  = "boldlink/<module_name>/<provider>"
-  version = "x.x.x"
-  <insert the minimum required variables here if any are required>
-  ...
+for example
+```hcl
+module "budget" {
+  source      = "boldlink/budget/aws"
+  name        = "planned_limit_budget"
+  budget_type = "COST"
+  limit_unit  = "USD"
+  time_unit   = "MONTHLY"
+
+  planned_limit = [
+    {
+      start_time = "2023-01-01_00:00"
+      amount     = 30
+      unit       = "200"
+    },
+
+    ## `Other months here`
+
+    {
+      start_time = "2023-12-01_00:00"
+      amount     = 30
+      unit       = "200"
+    }
+  ]
+}
+```
+#### Notification
+- Only one of `subscriber_email_addresses` or `subscriber_sns_topic_arns` must be provided.
+
+#### Auto Adjust Data
+- Enabling this feature **overrides any previously set limit amount**. This is because when both are specified, Terraform will always detect a change in the next application. This is because when using the auto-adjust feature, the limit amount is determined by the average cost of the provided time period.
+
+#### Module Examples
+Examples are available [`here`](./examples)
+
+**NOTE**: These examples utilize the most recent version of this module. To do so, specify the source without including a version number, as demonstrated below.
+
+## Getting Started
+- Install the module by running `terraform init`
+- Configure the module by providing the necessary data in the `module` block, as shown in the example below.
+- Run `terraform apply` to create the budget resource.
+- Use the cost visualization feature in AWS Cost Explorer to monitor your account's costs.
+
+```hcl
+module "minimum_example" {
+  source            = "boldlink/budget/aws"
+  name              = local.name
+  budget_type       = "COST"
+  limit_amount      = "300"
+  limit_unit        = "USD"
+  time_unit         = "MONTHLY"
+  time_period_start = "2023-01-01_00:00"
+  time_period_end   = "2023-02-28_00:00"
+
+  notification = [
+    {
+      comparison_operator        = "GREATER_THAN"
+      threshold                  = 50
+      threshold_type             = "PERCENTAGE"
+      notification_type          = "ACTUAL"
+      subscriber_email_addresses = [local.email]
+    }
+  ]
 }
 ```
 ## Documentation
 
-[<ex. Amazon VPC/Github/Cloudflare> Documentation](https://link)
+[Amazon Budget Documentation](https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_budgets_Budget.html#)
 
-[Terraform module documentation](https://link)
+[Terraform module documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -57,11 +105,13 @@ module "miniumum" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.11 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.20.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.45.0 |
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.50.0 |
 
 ## Modules
 
@@ -69,15 +119,35 @@ No modules.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [aws_budgets_budget.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget) | resource |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | The ID of the target account for budget. Will use current user's account\_id by default if omitted | `number` | `null` | no |
+| <a name="input_auto_adjust_data"></a> [auto\_adjust\_data](#input\_auto\_adjust\_data) | The parameters that determine the budget amount for an auto-adjusting budget. | `any` | `{}` | no |
+| <a name="input_budget_type"></a> [budget\_type](#input\_budget\_type) | Whether this budget tracks monetary cost or usage. Valid values include `COST`, `USAGE`, `SAVINGS_PLANS_UTILIZATION`, `RI_UTILIZATION` | `string` | n/a | yes |
+| <a name="input_cost_filter"></a> [cost\_filter](#input\_cost\_filter) | A list of CostFilter name/values pair to apply to budget. RI UtilizatioSn plans require a service cost filter to be set | `any` | `[]` | no |
+| <a name="input_cost_types"></a> [cost\_types](#input\_cost\_types) | Object containing CostTypes The types of cost included in a budget, such as tax and subscriptions. Cost types must be defined for RI budgets because the settings conflict with the defaults | `map(string)` | `{}` | no |
+| <a name="input_limit_amount"></a> [limit\_amount](#input\_limit\_amount) | The amount of cost or usage being measured for a budget. | `number` | `null` | no |
+| <a name="input_limit_unit"></a> [limit\_unit](#input\_limit\_unit) | The unit of measurement used for the budget forecast, actual spend, or budget threshold, such as USD or GBP. | `string` | `null` | no |
+| <a name="input_name"></a> [name](#input\_name) | The name of a budget. Unique within accounts. | `string` | `null` | no |
+| <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | The prefix of the name of a budget. Unique within accounts. | `string` | `null` | no |
+| <a name="input_notification"></a> [notification](#input\_notification) | Object containing Budget Notifications. | `any` | `[]` | no |
+| <a name="input_planned_limit"></a> [planned\_limit](#input\_planned\_limit) | Object containing Budget Notifications. Can be used multiple times to define more than one budget notification. | `any` | `[]` | no |
+| <a name="input_time_period_end"></a> [time\_period\_end](#input\_time\_period\_end) | The end of the time period covered by the budget. There are no restrictions on the end date. `Format: 2017-01-01_12:00`. | `string` | `null` | no |
+| <a name="input_time_period_start"></a> [time\_period\_start](#input\_time\_period\_start) | The start of the time period covered by the budget. If you don't specify a start date, AWS defaults to the start of your chosen time period. The start date must come before the end date. `Format: 2017-01-01_12:00`. | `string` | `null` | no |
+| <a name="input_time_unit"></a> [time\_unit](#input\_time\_unit) | The length of time until a budget resets the actual and forecasted spend. Valid values: MONTHLY, QUARTERLY, ANNUALLY, and DAILY. | `string` | n/a | yes |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the budget. |
+| <a name="output_id"></a> [id](#output\_id) | id of resource. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Third party software
@@ -105,7 +175,7 @@ Any supporting resources will be available on the `tests/supportingResources` an
 Resources on the `tests/supportingResources` folder are not intended for demo or actual implementation purposes, and can be used for reference.
 
 ### Makefile
-The makefile contain in this repo is optimized for linux paths and the main purpose is to execute testing for now.
+The makefile contained in this repo is optimized for linux paths and the main purpose is to execute testing for now.
 * Create all tests stacks including any supporting resources:
 ```console
 make tests
@@ -123,5 +193,4 @@ make cleansupporting
 make cleanstatefiles
 ```
 
-
-#### BOLDLink-SIG 2022
+#### BOLDLink-SIG 2023
