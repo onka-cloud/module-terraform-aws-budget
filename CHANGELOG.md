@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Show setting up with SNS topic
 - feat: Show use of other `cost_filter` types in example
 - feat: Show using planned_limit
-- feat: Add butdge action features (to perform action on AWS resources when threshold is reached)
+- feat: Add budget action features (to perform action on AWS resources when threshold is reached)
+
+## [1.0.1] - 2023-01-16
+### Description
+- fix: modified email used in examples
 
 ## [1.0.0] - 2023-01-11
 ### Description
@@ -18,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: planned limit for filtering costs for a whole year (12 months) or 4 quarters
 - feat: cost filter for specified AWS services
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-budget/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-budget/compare/1.0.1...HEAD
 
+[1.0.1]: https://github.com/boldlink/terraform-aws-budget/releases/tag/1.0.1
 [1.0.0]: https://github.com/boldlink/terraform-aws-budget/releases/tag/1.0.0

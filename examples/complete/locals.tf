@@ -1,4 +1,4 @@
 locals {
-  email = "example.email@email_provider"
+  email = "example.email@example.com"
   name  = "complete_example_budget"
 }
