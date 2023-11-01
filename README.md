@@ -28,7 +28,8 @@ This module simplifies budget management by creating an AWS budget resource and 
 
 ### Things to Note before using the module
 #### Planned_limit
-- "For the planned limit feature, data must be supplied for the next 12 months if utilizing a monthly projection, or 4 quarters if utilizing a quarterly projection. The start time should be provided in the format YYYY-MM-DD_HH:MM.",
+- "For the planned limit feature, data must be supplied for the next 12 months if utilizing a monthly projection, or 4 quarters if utilizing a quarterly projection. The start time should be provided in the format YYYY-MM-DD_HH:MM.".
+- The planned limit feature shows an update in place upon doing a second/ subsequent terraform plan or apply
 
 for example
 ```hcl
@@ -113,7 +114,7 @@ module "minimum_example" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.12.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.23.1 |
 
 ## Modules
 

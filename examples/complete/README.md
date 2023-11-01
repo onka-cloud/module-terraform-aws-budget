@@ -21,7 +21,7 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.11 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.45.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.15.0 |
 
 ## Providers
 
@@ -32,6 +32,9 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_complete_example"></a> [complete\_example](#module\_complete\_example) | ../../ | n/a |
+| <a name="module_limit_amount"></a> [limit\_amount](#module\_limit\_amount) | ../../ | n/a |
+| <a name="module_planned_limit"></a> [planned\_limit](#module\_planned\_limit) | ../../ | n/a |
+| <a name="module_sns_topic"></a> [sns\_topic](#module\_sns\_topic) | boldlink/sns/aws | 1.1.1 |
 
 ## Resources
 
@@ -39,7 +42,10 @@ No resources.
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_name"></a> [name](#input\_name) | The name of a budget. Unique within accounts. | `string` | `"example-complete-budget"` | no |
+| <a name="input_planned_limit"></a> [planned\_limit](#input\_planned\_limit) | Object containing Budget Notifications. Can be used multiple times to define more than one budget notification. | `any` | <pre>[<br>  {<br>    "amount": "100",<br>    "start_time": "2023-10-01_00:00",<br>    "unit": "USD"<br>  },<br>  {<br>    "amount": "100",<br>    "start_time": "2023-11-01_00:00",<br>    "unit": "USD"<br>  },<br>  {<br>    "amount": "100",<br>    "start_time": "2023-12-01_00:00",<br>    "unit": "USD"<br>  },<br>  {<br>    "amount": "100",<br>    "start_time": "2024-01-01_00:00",<br>    "unit": "USD"<br>  },<br>  {<br>    "amount": "100",<br>    "start_time": "2024-02-01_00:00",<br>    "unit": "USD"<br>  },<br>  {<br>    "amount": "100",<br>    "start_time": "2024-03-01_00:00",<br>    "unit": "USD"<br>  },<br>  {<br>    "amount": "100",<br>    "start_time": "2024-04-01_00:00",<br>    "unit": "USD"<br>  },<br>  {<br>    "amount": "100",<br>    "start_time": "2024-05-01_00:00",<br>    "unit": "USD"<br>  },<br>  {<br>    "amount": "100",<br>    "start_time": "2024-06-01_00:00",<br>    "unit": "USD"<br>  },<br>  {<br>    "amount": "100",<br>    "start_time": "2024-07-01_00:00",<br>    "unit": "USD"<br>  },<br>  {<br>    "amount": "100",<br>    "start_time": "2024-08-01_00:00",<br>    "unit": "USD"<br>  },<br>  {<br>    "amount": "100",<br>    "start_time": "2024-09-01_00:00",<br>    "unit": "USD"<br>  }<br>]</pre> | no |
 
 ## Outputs
 

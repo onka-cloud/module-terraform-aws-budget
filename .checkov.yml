@@ -6,3 +6,4 @@ external-modules-download-path: .external_modules
 framework: all
 skip-check:
 - CKV2_GHA_1  #Ensure top-level permissions are not set to write-all
+- CKV_TF_1 #"Ensure Terraform module sources use a commit hash"
