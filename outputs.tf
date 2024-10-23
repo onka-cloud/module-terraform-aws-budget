@@ -7,3 +7,8 @@ output "arn" {
   description = "The ARN of the budget."
   value       = aws_budgets_budget.main.arn
 }
+
+output "name" {
+  description = "The ARN of the budget."
+  value       = aws_budgets_budget.main.name
+}
